@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import {
-  BadgeCheck,
-  Bell,
-  Copy,
+  Wallet,
   Gem,
   Radar,
   Shield,
   Sparkles,
-  User,
-  Wallet,
-  Zap,
+  Snowflake,
+  UserRound,
 } from "lucide-react";
+
 import SnowCanvas from "./components/SnowCanvas";
 import BottomNav from "./components/BottomNav";
-import FrostCard from "./components/FrostCard";
 
 declare global {
   interface Window {
@@ -24,7 +21,7 @@ declare global {
 
 type Tab = "home" | "vault" | "drops" | "track" | "profile";
 
-function shortAddress(address: string) {
+function shortenAddress(address: string) {
   if (!address) return "";
   return `${address.slice(0, 6)}...${address.slice(-5)}`;
 }
@@ -45,190 +42,156 @@ export default function App() {
   }, []);
 
   const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
-  const displayName = user?.first_name || "Frost User";
-  const username = user?.username ? `@${user.username}` : "@telegram_user";
-  const photoUrl = user?.photo_url;
+
+  const displayName =
+    user?.first_name || user?.last_name
+      ? `${user?.first_name || ""} ${user?.last_name || ""}`.trim()
+      : "Frost User";
+
+  const username = user?.username ? `@${user.username}` : "@telegram";
 
   return (
     <div className="app-shell">
       <SnowCanvas />
 
       <main className="app-content">
-        <section className="topbar">
-          <div>
-            <p className="eyebrow">FROSTLAB</p>
-            <h1>Frozen TON Hub</h1>
-          </div>
-
-          <button className="icon-button" type="button">
-            <Bell size={20} />
-          </button>
-        </section>
-
-        <section className="profile-card">
-          <div className="profile-main">
-            <div className="avatar">
-              {photoUrl ? (
-                <img src={photoUrl} alt={displayName} />
+        <section className="top-card">
+          <div className="profile-row">
+            <div className="avatar-wrap">
+              {user?.photo_url ? (
+                <img src={user.photo_url} alt={displayName} />
               ) : (
-                <User size={28} />
+                <UserRound size={30} />
               )}
             </div>
 
-            <div className="profile-text">
-              <h2>{displayName}</h2>
+            <div className="profile-copy">
+              <h1>{displayName}</h1>
               <p>{username}</p>
             </div>
           </div>
 
-          <div className="profile-badges">
+          <div className="top-meta">
             <span>
-              <BadgeCheck size={14} />
-              Glacier I
+              <Snowflake size={14} />
+              Frost Rank I
             </span>
-
             <span className={tonAddress ? "live" : ""}>
               <Wallet size={14} />
-              {tonAddress ? "Wallet Live" : "No Wallet"}
+              {tonAddress ? "Wallet online" : "Wallet offline"}
             </span>
           </div>
 
-          <div className="xp-block">
-            <div className="xp-label">
-              <span>Frost XP</span>
-              <strong>120 / 500</strong>
-            </div>
-            <div className="xp-track">
-              <div className="xp-fill" />
-            </div>
-          </div>
-        </section>
-
-        <section className="wallet-strip">
-          <div>
-            <p>TON Wallet</p>
-            <strong>{tonAddress ? shortAddress(tonAddress) : "Connect to sync vault"}</strong>
-          </div>
-
-          {tonAddress ? (
-            <button className="copy-button" type="button">
-              <Copy size={17} />
-            </button>
-          ) : (
+          <div className="connect-zone">
             <TonConnectButton />
-          )}
+          </div>
         </section>
 
         {activeTab === "home" && (
-          <div className="screen">
-            <div className="quick-grid">
-              <button className="quick-card" type="button" onClick={() => setActiveTab("vault")}>
-                <Shield size={21} />
-                <strong>Vault</strong>
-                <span>Owned assets</span>
-              </button>
+          <section className="screen">
+            <div className="hero-card">
+              <div>
+                <p className="eyebrow">TON ECOSYSTEM HUB</p>
+                <h2>FrostLab</h2>
+                <p>
+                  Icy command center for TON wallets, drops, vault items,
+                  tracking, and Telegram-native collectibles.
+                </p>
+              </div>
 
-              <button className="quick-card" type="button" onClick={() => setActiveTab("drops")}>
-                <Gem size={21} />
-                <strong>Drops</strong>
-                <span>Live mints</span>
-              </button>
-
-              <button className="quick-card" type="button" onClick={() => setActiveTab("track")}>
-                <Radar size={21} />
-                <strong>Track</strong>
-                <span>TON activity</span>
-              </button>
-
-              <button className="quick-card" type="button" onClick={() => setActiveTab("profile")}>
-                <Sparkles size={21} />
-                <strong>Rank</strong>
-                <span>Progression</span>
-              </button>
+              <div className="hero-orb">
+                <Sparkles size={28} />
+              </div>
             </div>
 
-            <FrostCard title="Command Center">
-              <div className="metric-row">
-                <div>
-                  <strong>{tonAddress ? "Synced" : "Offline"}</strong>
-                  <span>Wallet State</span>
-                </div>
-
-                <div>
-                  <strong>0</strong>
-                  <span>Vault Items</span>
-                </div>
-
-                <div>
-                  <strong>0</strong>
-                  <span>Active Drops</span>
-                </div>
+            <div className="grid-two">
+              <div className="mini-card">
+                <Wallet size={20} />
+                <strong>{tonAddress ? "Connected" : "Offline"}</strong>
+                <span>{tonAddress ? shortenAddress(tonAddress) : "TON Wallet"}</span>
               </div>
-            </FrostCard>
 
-            <FrostCard title="Daily Frost">
-              <div className="mission-line">
-                <Zap size={18} />
-                <div>
-                  <strong>Connect wallet</strong>
-                  <span>Unlock vault sync and TON tracking.</span>
-                </div>
+              <div className="mini-card">
+                <Shield size={20} />
+                <strong>Vault</strong>
+                <span>No items yet</span>
               </div>
-            </FrostCard>
-          </div>
+            </div>
+
+            <div className="section-card">
+              <div className="card-title">
+                <Gem size={18} />
+                <h3>Active Drops</h3>
+              </div>
+              <p>No live drops yet. Supabase drops will appear here.</p>
+            </div>
+          </section>
         )}
 
         {activeTab === "vault" && (
-          <div className="screen">
-            <FrostCard title="NFT Vault">
-              <p className="muted">
+          <section className="screen">
+            <div className="section-card large">
+              <div className="card-title">
+                <Shield size={18} />
+                <h3>NFT Vault</h3>
+              </div>
+              <p>
                 {tonAddress
-                  ? "Wallet connected. Next step: load real NFTs from TONAPI."
-                  : "Connect your TON wallet to reveal your frozen collection."}
+                  ? "Wallet connected. Next step: load owned TON collectibles."
+                  : "Connect your TON wallet to unlock your vault."}
               </p>
-            </FrostCard>
-          </div>
+            </div>
+          </section>
         )}
 
         {activeTab === "drops" && (
-          <div className="screen">
-            <FrostCard title="Drops">
-              <p className="muted">
-                No live drops yet. Soon this loads from Supabase.
-              </p>
-            </FrostCard>
-          </div>
+          <section className="screen">
+            <div className="section-card large">
+              <div className="card-title">
+                <Gem size={18} />
+                <h3>Drops</h3>
+              </div>
+              <p>Future sticker packs, creator drops, and TON collectibles go here.</p>
+            </div>
+          </section>
         )}
 
         {activeTab === "track" && (
-          <div className="screen">
-            <FrostCard title="TON Tracking">
-              <p className="muted">
-                Track wallet movement, collectibles, creator drops, and ecosystem events.
-              </p>
-            </FrostCard>
-          </div>
+          <section className="screen">
+            <div className="section-card large">
+              <div className="card-title">
+                <Radar size={18} />
+                <h3>Tracking</h3>
+              </div>
+              <p>Wallet activity, collection signals, and ecosystem events.</p>
+            </div>
+          </section>
         )}
 
         {activeTab === "profile" && (
-          <div className="screen">
-            <FrostCard title="Profile">
-              <div className="profile-detail">
-                <span>Name</span>
-                <strong>{displayName}</strong>
-              </div>
+          <section className="screen">
+            <div className="section-card large">
+              <div className="profile-row compact">
+                <div className="avatar-wrap small">
+                  {user?.photo_url ? (
+                    <img src={user.photo_url} alt={displayName} />
+                  ) : (
+                    <UserRound size={24} />
+                  )}
+                </div>
 
-              <div className="profile-detail">
-                <span>Username</span>
-                <strong>{username}</strong>
+                <div className="profile-copy">
+                  <h2>{displayName}</h2>
+                  <p>{username}</p>
+                </div>
               </div>
 
               <div className="profile-detail">
                 <span>Wallet</span>
-                <strong>{tonAddress ? shortAddress(tonAddress) : "Not connected"}</strong>
+                <strong>{tonAddress ? shortenAddress(tonAddress) : "Not connected"}</strong>
               </div>
-            </FrostCard>
-          </div>
+            </div>
+          </section>
         )}
       </main>
 

@@ -135,14 +135,13 @@ export default function SnowCanvas() {
       }
 
       // ── Snow ParticleContainers ───────────────────────────────────────────
-      const pContainers = LAYERS.map(() =>
-        new PIXI.ParticleContainer({
-  dynamicProperties: {
-    position: true,
-  },
-  maxSize: 600,
-    })
-      );
+     const pContainers = LAYERS.map(() =>
+  new PIXI.ParticleContainer({
+    dynamicProperties: {
+      position: true,
+    },
+  })
+)
       for (const pc of pContainers) app.stage.addChild(pc);
 
       // ── Blob textures (one per layer radius) ──────────────────────────────

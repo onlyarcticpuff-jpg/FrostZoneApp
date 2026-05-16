@@ -10,6 +10,7 @@ import {
   UserRound,
   Search,
   Loader2,
+  Wallet,
 } from "lucide-react";
 import TonIcon from "./assets/icons/ton.svg";
 

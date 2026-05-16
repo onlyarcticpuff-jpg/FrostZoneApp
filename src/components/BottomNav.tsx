@@ -4,6 +4,7 @@ import {
   Search,
   Radar,
   User,
+  Wallet,
 } from "lucide-react";
 
 type Tab = "home" | "vault" | "drops" | "track" | "profile";

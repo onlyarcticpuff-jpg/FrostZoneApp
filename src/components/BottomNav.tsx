@@ -1,3 +1,11 @@
+import {
+  Home,
+  Vault,
+  Gem,
+  Radar,
+  User,
+} from "lucide-react";
+
 type Tab = "home" | "vault" | "drops" | "track" | "profile";
 
 type Props = {
@@ -5,27 +13,36 @@ type Props = {
   setActiveTab: (tab: Tab) => void;
 };
 
-const items: { id: Tab; label: string; icon: string }[] = [
-  { id: "home", label: "Home", icon: "❄️" },
-  { id: "vault", label: "Vault", icon: "🧊" },
-  { id: "drops", label: "Drops", icon: "💎" },
-  { id: "track", label: "Track", icon: "📡" },
-  { id: "profile", label: "Me", icon: "👤" },
+const items: {
+  id: Tab;
+  label: string;
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
+}[] = [
+  { id: "home", label: "Home", Icon: Home },
+  { id: "vault", label: "Vault", Icon: Vault },
+  { id: "drops", label: "Drops", Icon: Gem },
+  { id: "track", label: "Track", Icon: Radar },
+  { id: "profile", label: "Me", Icon: User },
 ];
 
 export default function BottomNav({ activeTab, setActiveTab }: Props) {
   return (
     <nav className="bottom-nav">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          className={activeTab === item.id ? "nav-item active" : "nav-item"}
-          onClick={() => setActiveTab(item.id)}
-        >
-          <span>{item.icon}</span>
-          <small>{item.label}</small>
-        </button>
-      ))}
+      {items.map(({ id, label, Icon }) => {
+        const active = activeTab === id;
+
+        return (
+          <button
+            key={id}
+            className={active ? "nav-item active" : "nav-item"}
+            onClick={() => setActiveTab(id)}
+            type="button"
+          >
+            <Icon size={21} strokeWidth={active ? 2.7 : 2.2} />
+            <small>{label}</small>
+          </button>
+        );
+      })}
     </nav>
   );
 }

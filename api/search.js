@@ -24,12 +24,11 @@ export default async function handler(req, res) {
     }
 
     const url = new URL(searchUrl);
-    url.searchParams.set("q", query);
 
     const response = await fetch(url.toString(), {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+         Authorization: apiKey,
         "X-API-Key": apiKey,
         Accept: "application/json",
       },

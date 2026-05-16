@@ -181,70 +181,57 @@ const tonAddress = useTonAddress();
 
         {activeTab === "drops" && (
   <section className="screen">
-    <div className="search-card">
-      <div className="card-title">
-        <Search size={18} />
-        <h3>Search</h3>
+    <div className="hero-card ton-hero">
+      <div>
+        <p className="eyebrow">TON NETWORK</p>
+        <h2>TON Hub</h2>
+        <p>Wallet, market, and collectible signals in one frozen command panel.</p>
       </div>
 
-      <div className="search-box">
-        <input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              runSearch();
-            }
-          }}
-          placeholder="Search collectibles..."
-        />
-
-        <button
-          onClick={runSearch}
-          disabled={searchLoading || !searchQuery.trim()}
-        >
-          {searchLoading ? (
-            <Loader2 size={18} className="spin" />
-          ) : (
-            <Search size={18} />
-          )}
-        </button>
+      <div className="ton-orb">
+        <img src={TonIcon} alt="TON" />
       </div>
-
-      {searchError && (
-        <div className="error-box">
-          {searchError}
-        </div>
-      )}
     </div>
 
-    <div className="results-grid">
-      {searchResults.map((item) => (
-        <article className="collectible-card" key={item.id}>
-          <div className="collectible-preview">
-            {item.image ? (
-              <img src={item.image} alt={item.name} />
-            ) : (
-              <Gem size={28} />
-            )}
-          </div>
+    <div className="grid-two">
+      <div className="mini-card">
+        <img className="mini-ton-icon" src={TonIcon} alt="TON" />
+        <strong>TON Price</strong>
+        <span>Coming soon</span>
+      </div>
 
-          <div className="collectible-info">
-            <strong>{item.name}</strong>
-            <span>{item.collection}</span>
-          </div>
+      <div className="mini-card">
+        <Wallet size={20} />
+        <strong>Wallet</strong>
+        <span>{tonAddress ? shortenAddress(tonAddress) : "Not connected"}</span>
+      </div>
+    </div>
 
-          <div className="collectible-meta">
-            <span>
-              {item.value || "NFT"}
-            </span>
-          </div>
-        </article>
-      ))}
+    <div className="section-card">
+      <div className="card-title">
+        <Shield size={18} />
+        <h3>Popular NFTs</h3>
+      </div>
+
+      <div className="feature-list">
+        <div className="feature-row">
+          <span>Telegram Usernames</span>
+          <strong>Featured</strong>
+        </div>
+
+        <div className="feature-row">
+          <span>TON Collectibles</span>
+          <strong>Tracking soon</strong>
+        </div>
+
+        <div className="feature-row">
+          <span>Market Activity</span>
+          <strong>Coming soon</strong>
+        </div>
+      </div>
     </div>
   </section>
 )}
-
         {activeTab === "track" && (
           <section className="screen">
             <div className="section-card large">

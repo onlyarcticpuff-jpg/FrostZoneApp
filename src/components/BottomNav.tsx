@@ -1,7 +1,7 @@
 import {
   Home,
-  Vault,
-  Gem,
+  Shield,
+  Search,
   Radar,
   User,
 } from "lucide-react";
@@ -19,8 +19,8 @@ const items: {
   Icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
 }[] = [
   { id: "home", label: "Home", Icon: Home },
-  { id: "vault", label: "Vault", Icon: Vault },
-  { id: "drops", label: "Drops", Icon: Gem },
+  { id: "vault", label: "Vault", Icon: Shield },
+  { id: "drops", label: "Search", Icon: Search },
   { id: "track", label: "Track", Icon: Radar },
   { id: "profile", label: "Me", Icon: User },
 ];

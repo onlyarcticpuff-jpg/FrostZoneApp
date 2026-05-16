@@ -8,6 +8,8 @@ import {
   Sparkles,
   Snowflake,
   UserRound,
+  Search,
+  Loader2,
 } from "lucide-react";
 
 import SnowCanvas from "./components/SnowCanvas";
@@ -27,8 +29,40 @@ function shortenAddress(address: string) {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<Tab>("home");
-  const tonAddress = useTonAddress();
+const [activeTab, setActiveTab] = useState<Tab>("home");
+const [searchQuery, setSearchQuery] = useState("");
+const [searchResults, setSearchResults] = useState<any[]>([]);
+const [searchLoading, setSearchLoading] = useState(false);
+const [searchError, setSearchError] = useState("");
+const tonAddress = useTonAddress();
+  async function runSearch() {
+  const q = searchQuery.trim();
+
+  if (!q) return;
+
+  setSearchLoading(true);
+  setSearchError("");
+
+  try {
+    const response = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data?.error || "Search failed");
+    }
+
+    setSearchResults(data.results || []);
+  } catch (err) {
+    setSearchError(
+      err instanceof Error ? err.message : "Search failed"
+    );
+
+    setSearchResults([]);
+  } finally {
+    setSearchLoading(false);
+  }
+  }
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
@@ -145,16 +179,70 @@ export default function App() {
         )}
 
         {activeTab === "drops" && (
-          <section className="screen">
-            <div className="section-card large">
-              <div className="card-title">
-                <Gem size={18} />
-                <h3>Drops</h3>
-              </div>
-              <p>Future sticker packs, creator drops, and TON collectibles go here.</p>
-            </div>
-          </section>
-        )}
+  <section className="screen">
+    <div className="search-card">
+      <div className="card-title">
+        <Search size={18} />
+        <h3>Search</h3>
+      </div>
+
+      <div className="search-box">
+        <input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              runSearch();
+            }
+          }}
+          placeholder="Search collectibles..."
+        />
+
+        <button
+          onClick={runSearch}
+          disabled={searchLoading || !searchQuery.trim()}
+        >
+          {searchLoading ? (
+            <Loader2 size={18} className="spin" />
+          ) : (
+            <Search size={18} />
+          )}
+        </button>
+      </div>
+
+      {searchError && (
+        <div className="error-box">
+          {searchError}
+        </div>
+      )}
+    </div>
+
+    <div className="results-grid">
+      {searchResults.map((item) => (
+        <article className="collectible-card" key={item.id}>
+          <div className="collectible-preview">
+            {item.image ? (
+              <img src={item.image} alt={item.name} />
+            ) : (
+              <Gem size={28} />
+            )}
+          </div>
+
+          <div className="collectible-info">
+            <strong>{item.name}</strong>
+            <span>{item.collection}</span>
+          </div>
+
+          <div className="collectible-meta">
+            <span>
+              {item.value || "NFT"}
+            </span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
 
         {activeTab === "track" && (
           <section className="screen">

@@ -233,16 +233,55 @@ const tonAddress = useTonAddress();
   </section>
 )}
         {activeTab === "track" && (
-          <section className="screen">
-            <div className="section-card large">
-              <div className="card-title">
-                <Radar size={18} />
-                <h3>Tracking</h3>
-              </div>
-              <p>Wallet activity, collection signals, and ecosystem events.</p>
-            </div>
-          </section>
-        )}
+  <section className="screen">
+    <div className="section-card large">
+      <div className="card-title">
+        <Gem size={18} />
+        <h3>Gifts & NFTs</h3>
+      </div>
+
+      <p>Explore Telegram gifts, collectible usernames, rare NFTs, and featured drops.</p>
+    </div>
+
+    <div className="grid-two">
+      <div className="mini-card">
+        <Gem size={20} />
+        <strong>Gifts</strong>
+        <span>Popular items</span>
+      </div>
+
+      <div className="mini-card">
+        <Shield size={20} />
+        <strong>NFTs</strong>
+        <span>Featured collections</span>
+      </div>
+    </div>
+
+    <div className="section-card">
+      <div className="card-title">
+        <Sparkles size={18} />
+        <h3>Featured</h3>
+      </div>
+
+      <div className="feature-list">
+        <div className="feature-row">
+          <span>Rare Telegram Gifts</span>
+          <strong>Soon</strong>
+        </div>
+
+        <div className="feature-row">
+          <span>Collectible Usernames</span>
+          <strong>Live next</strong>
+        </div>
+
+        <div className="feature-row">
+          <span>Seasonal Drops</span>
+          <strong>Planned</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
 
         {activeTab === "profile" && (
           <section className="screen">

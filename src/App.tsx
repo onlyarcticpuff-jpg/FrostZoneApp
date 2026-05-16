@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import {
+  BadgeCheck,
+  Bell,
+  Gem,
+  Radar,
+  Shield,
+  Snowflake,
+  Sparkles,
+  User,
+  Wallet,
+  Zap,
+} from "lucide-react";
+
 import SnowCanvas from "./components/SnowCanvas";
 import BottomNav from "./components/BottomNav";
 import FrostCard from "./components/FrostCard";
@@ -11,6 +24,11 @@ declare global {
 }
 
 type Tab = "home" | "vault" | "drops" | "track" | "profile";
+
+function shortAddress(address: string) {
+  if (!address) return "";
+  return `${address.slice(0, 5)}...${address.slice(-5)}`;
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>("home");
@@ -29,38 +47,109 @@ export default function App() {
 
   const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
 
+  const displayName = user?.first_name || "Frost User";
+  const username = user?.username ? `@${user.username}` : "@telegram_user";
+  const photoUrl = user?.photo_url;
+
   return (
     <div className="app-shell">
       <SnowCanvas />
 
       <main className="app-content">
-        <header className="hero">
+        <section className="top-bar">
+          <div className="brand-mark">
+            <Snowflake size={19} />
+          </div>
+
           <div>
-            <p className="eyebrow">TON ECOSYSTEM HUB</p>
-            <h1>FrostLab</h1>
-            <p className="subtitle">
-              Icy vault for TON, Telegram collectibles, stickers, drops and tracking.
-            </p>
+            <p className="brand-label">FROSTLAB</p>
+            <h1>Command Center</h1>
+          </div>
+
+          <button className="icon-button" type="button">
+            <Bell size={18} />
+          </button>
+        </section>
+
+        <section className="profile-card">
+          <div className="profile-row">
+            <div className="avatar">
+              {photoUrl ? <img src={photoUrl} alt={displayName} /> : <User size={26} />}
+            </div>
+
+            <div className="profile-info">
+              <div className="name-row">
+                <h2>{displayName}</h2>
+                <BadgeCheck size={17} />
+              </div>
+              <p>{username}</p>
+            </div>
+          </div>
+
+          <div className="profile-meta">
+            <span>
+              <Shield size={14} />
+              Glacier I
+            </span>
+
+            <span className={tonAddress ? "connected" : ""}>
+              <Wallet size={14} />
+              {tonAddress ? "Wallet linked" : "No wallet"}
+            </span>
+          </div>
+
+          <div className="xp-block">
+            <div className="xp-top">
+              <span>Frost XP</span>
+              <strong>120 / 500</strong>
+            </div>
+            <div className="xp-track">
+              <div className="xp-fill" />
+            </div>
+          </div>
+        </section>
+
+        <section className="wallet-card">
+          <div>
+            <p className="section-kicker">TON CONNECT</p>
+            <h3>{tonAddress ? "Wallet active" : "Connect wallet"}</h3>
+            <p>{tonAddress ? shortAddress(tonAddress) : "Unlock vault, drops and tracking."}</p>
           </div>
 
           <div className="ton-connect-wrap">
             <TonConnectButton />
           </div>
-        </header>
+        </section>
 
         {activeTab === "home" && (
           <div className="screen">
-            <FrostCard title="Frozen Command Center">
-              <p>
-                {user
-                  ? `Welcome, ${user.first_name}.`
-                  : "Open inside Telegram for identity sync."}
-              </p>
+            <div className="quick-grid">
+              <button className="quick-card" type="button" onClick={() => setActiveTab("vault")}>
+                <Shield size={22} />
+                <span>Vault</span>
+              </button>
 
+              <button className="quick-card" type="button" onClick={() => setActiveTab("drops")}>
+                <Gem size={22} />
+                <span>Drops</span>
+              </button>
+
+              <button className="quick-card" type="button" onClick={() => setActiveTab("track")}>
+                <Radar size={22} />
+                <span>Track</span>
+              </button>
+
+              <button className="quick-card" type="button" onClick={() => setActiveTab("profile")}>
+                <Sparkles size={22} />
+                <span>Profile</span>
+              </button>
+            </div>
+
+            <FrostCard title="Frozen Overview">
               <div className="stat-grid">
                 <div>
-                  <strong>{tonAddress ? "Connected" : "Offline"}</strong>
-                  <span>Wallet</span>
+                  <strong>0</strong>
+                  <span>Vault Items</span>
                 </div>
                 <div>
                   <strong>0</strong>
@@ -68,13 +157,21 @@ export default function App() {
                 </div>
                 <div>
                   <strong>0</strong>
-                  <span>Vault Items</span>
+                  <span>Tracked</span>
                 </div>
               </div>
             </FrostCard>
 
             <FrostCard title="Daily Frost">
-              <p>No missions yet. Next: connect Supabase and real tracking.</p>
+              <div className="mission-row">
+                <div className="mission-icon">
+                  <Zap size={18} />
+                </div>
+                <div>
+                  <strong>Connect wallet</strong>
+                  <p>First mission starts with linking your TON wallet.</p>
+                </div>
+              </div>
             </FrostCard>
           </div>
         )}
@@ -84,8 +181,8 @@ export default function App() {
             <FrostCard title="NFT Vault">
               <p>
                 {tonAddress
-                  ? "Wallet connected. Next step: fetch real NFTs with TONAPI."
-                  : "Connect TON wallet to view collectibles."}
+                  ? "Wallet connected. Next upgrade: fetch real NFTs with TONAPI."
+                  : "Connect your TON wallet to reveal vault items."}
               </p>
             </FrostCard>
           </div>
@@ -94,7 +191,7 @@ export default function App() {
         {activeTab === "drops" && (
           <div className="screen">
             <FrostCard title="Drops">
-              <p>No live drops yet. This will load from Supabase.</p>
+              <p>No live drops yet. Next upgrade: Supabase drop database.</p>
             </FrostCard>
           </div>
         )}
@@ -102,23 +199,16 @@ export default function App() {
         {activeTab === "track" && (
           <div className="screen">
             <FrostCard title="TON Tracking">
-              <p>Track wallet activity, collections, drops and ecosystem events.</p>
+              <p>Track wallets, drops, collections and activity across the TON ecosystem.</p>
             </FrostCard>
           </div>
         )}
 
         {activeTab === "profile" && (
           <div className="screen">
-            <FrostCard title="Telegram Profile">
-              {user ? (
-                <>
-                  <p>{user.first_name}</p>
-                  <p>@{user.username || "no_username"}</p>
-                </>
-              ) : (
-                <p>No Telegram user detected.</p>
-              )}
-
+            <FrostCard title="Profile">
+              <p>{displayName}</p>
+              <p>{username}</p>
               <p className="wallet-text">
                 {tonAddress ? tonAddress : "No wallet connected"}
               </p>

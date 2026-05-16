@@ -28,11 +28,11 @@ import * as PIXI from "pixi.js";
 // ─── Wind ─────────────────────────────────────────────────────────────────────
 
 const WIND_LERP     = 0.0012;
-const WIND_BASE     = 0.9;    // blizzard is always pushing
-const WIND_MAX      = 2.4;
+const WIND_BASE     = 0.09;    // blizzard is always pushing
+const WIND_MAX      = 0.1;
 const WIND_INTERVAL = 280;
 const GUST_CHANCE   = 0.004;
-const GUST_PEAK     = 4.5;
+const GUST_PEAK     = 1.2;
 
 // ─── Ice dust layer ───────────────────────────────────────────────────────────
 

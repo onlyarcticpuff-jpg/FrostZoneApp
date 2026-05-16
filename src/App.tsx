@@ -11,6 +11,7 @@ import {
   Search,
   Loader2,
 } from "lucide-react";
+import TonIcon from "./assets/icons/ton.svg";
 
 import SnowCanvas from "./components/SnowCanvas";
 import BottomNav from "./components/BottomNav";

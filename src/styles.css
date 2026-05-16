@@ -188,8 +188,14 @@ h1 {
   font-weight: 700;
 }
 
-.nav-item span {
-  font-size: 18px;
+.nav-item svg {
+  width: 21px;
+  height: 21px;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.nav-item.active svg {
+  transform: translateY(-1px) scale(1.05);
 }
 
 .nav-item small {

@@ -20,7 +20,7 @@ const items: {
 }[] = [
   { id: "home", label: "Home", Icon: Home },
   { id: "vault", label: "Vault", Icon: Shield },
-  { id: "drops", label: "Search", Icon: Search },
+  { id: "drops", label: "TON", Icon: Wallet },
   { id: "track", label: "Track", Icon: Radar },
   { id: "profile", label: "Me", Icon: User },
 ];

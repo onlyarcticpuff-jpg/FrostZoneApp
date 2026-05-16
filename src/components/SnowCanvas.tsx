@@ -136,12 +136,12 @@ export default function SnowCanvas() {
 
       // ── Snow ParticleContainers ───────────────────────────────────────────
       const pContainers = LAYERS.map(() =>
-        new PIXI.ParticleContainer(
-          600,
-          { position: true, alpha: false, tint: false, uvs: false, rotation: false },
-          600,
-          true,
-        )
+        new PIXI.ParticleContainer({
+  dynamicProperties: {
+    position: true,
+  },
+  maxSize: 600,
+    })
       );
       for (const pc of pContainers) app.stage.addChild(pc);
 

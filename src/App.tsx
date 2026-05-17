@@ -63,8 +63,7 @@ interface NftCollection {
 
 const TONAPI_KEY =
   (import.meta as any)?.env?.VITE_TONAPI_KEY ??
-  (process as any)?.env?.REACT_APP_TONAPI_KEY ??
-  "";
+  const TONAPI_KEY = import.meta.env.VITE_TONAPI_KEY || "";
 
 /** Known verified / curated collection addresses on TON mainnet.
  *  These are Telegram sticker gifts, Fragment usernames contract,

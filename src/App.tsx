@@ -61,10 +61,8 @@ interface NftCollection {
   kind: "gift" | "username" | "verified";
 }
 
-const TONAPI_KEY =
-  (import.meta as any)?.env?.VITE_TONAPI_KEY ??
-  const TONAPI_KEY = import.meta.env.VITE_TONAPI_KEY || "";
 
+const TONAPI_KEY = import.meta.env.VITE_TONAPI_KEY || "";
 /** Known verified / curated collection addresses on TON mainnet.
  *  These are Telegram sticker gifts, Fragment usernames contract,
  *  and a small set of blue-chip verified collections.

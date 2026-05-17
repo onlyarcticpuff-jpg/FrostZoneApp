@@ -60,10 +60,7 @@ interface NftCollection {
   kind: "gift" | "username" | "verified";
 }
 
-const TONAPI_KEY =
-  (import.meta as any)?.env?.VITE_TONAPI_KEY ??
-  (process as any)?.env?.REACT_APP_TONAPI_KEY ??
-  "";
+const TONAPI_KEY = import.meta.env.VITE_TONAPI_KEY || "";
 
 const SCAM_KEYWORDS = ["airdrop", "giveaway", "claim now", "presale", "rug pull", "honeypot"];
 

@@ -58,7 +58,7 @@ interface NftCollection {
   name: string;
   coverImage: string | null;
   ownerCount: number | null;
-  kind: "gift" | "username" | "verified";
+  kind: "gift" | "username";
 }
 
 
@@ -103,7 +103,7 @@ function isLikelyLegit(c: any): boolean {
 }
 
 /** Determine the NFT "kind" for badge display */
-function inferKind(c: any): "gift" | "username" | "verified" {
+function inferKind(c: any): "gift" | "username" {
   const name: string = (c.metadata?.name ?? "").toLowerCase();
   if (name.includes("username") || name.includes("fragment") || name.includes(".ton")) return "username";
   if (name.includes("gift") || name.includes("sticker") || name.includes("emoji") || name.includes("premium")) return "gift";
@@ -126,7 +126,7 @@ function useTonApiCollections() {
 
         // Fetch more than we need so filtering leaves us with enough
         const r = await fetch(
-          "https://tonapi.io/v2/nfts/collections?limit=50",
+          "https://tonapi.io/v2/nfts/collections?limit=5000",
           { headers }
         );
         if (!r.ok) throw new Error(`TONAPI ${r.status}`);

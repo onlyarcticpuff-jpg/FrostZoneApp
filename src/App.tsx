@@ -61,9 +61,7 @@ interface NftCollection {
 }
 
 const TONAPI_KEY =
-  (import.meta as any)?.env?.VITE_TONAPI_KEY ??
-  (process as any)?.env?.REACT_APP_TONAPI_KEY ??
-  "";
+  import.meta.env.VITE_TONAPI_KEY || "";
 
 function useTonApiCollections() {
   const [items, setItems]     = useState<NftCollection[]>([]);

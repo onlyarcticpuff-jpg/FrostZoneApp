@@ -1,7 +1,7 @@
 import { PackageOpen, Backpack, Store, FlaskConical, User } from "lucide-react";
 import { useRef } from "react";
 
-type Tab = "open" | "inventory" | "market" | "lab" | "profile";
+type Tab = "open" | "inventory" | "market" | "profile";
 
 type Props = {
   activeTab: Tab;
@@ -21,7 +21,6 @@ const items: {
   { id: "open", label: "Open", Icon: PackageOpen },
   { id: "inventory", label: "Inventory", Icon: Backpack },
   { id: "market", label: "Market", Icon: Store },
-  { id: "lab", label: "Lab", Icon: FlaskConical },
   { id: "profile", label: "Me", Icon: User },
 ];
 

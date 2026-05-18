@@ -189,7 +189,7 @@ function CaseCard({ item, index, onClick }: { item: CaseType; index: number; onC
         <button
           style={{
             width: "100%", height: 50,
-            borderRadius: 16, border: "none",
+            borderRadius: 16,
             background: glowColor.replace(/[\d.]+\)$/, "0.18)"),
             backdropFilter: "blur(8px)",
             color: "white",

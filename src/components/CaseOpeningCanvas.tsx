@@ -240,10 +240,9 @@ export default function CaseOpeningCanvas({
       host.appendChild(app.canvas);
       app.canvas.style.cssText = "width:100%;height:100%;display:block;";
 
-      const res = app.renderer.resolution;
-      W = app.renderer.width  / res;
-      H = app.renderer.height / res;
-
+      W = host.clientWidth;
+      H = host.clientHeight;
+      
       // ── Layers ─────────────────────────────────────
       const layerAtmo    = new PIXI.Container();
       const layerReel    = new PIXI.Container();
@@ -362,10 +361,9 @@ export default function CaseOpeningCanvas({
       // ResizeObserver — reposition all static elements, no ticker involvement
       // ════════════════════════════════════════════════
       const ro = new ResizeObserver(() => {
-        const res = app.renderer.resolution;
-        W = app.renderer.width  / res;
-        H = app.renderer.height / res;
-
+        W = host.clientWidth;
+        H = host.clientHeight;
+        
         // bg
         atmoBg.clear();
         atmoBg.rect(0, 0, W, H);

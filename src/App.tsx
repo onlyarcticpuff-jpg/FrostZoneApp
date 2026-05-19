@@ -441,10 +441,10 @@ function CaseDetailPage({ caseData, onClose }: { caseData: CaseType; onClose: ()
             background: `radial-gradient(ellipse 92% 82% at 50% 60%, ${glowColor}, transparent 66%)`,
           }} />
           <CaseOpeningCanvas
-            imageUrl={caseData.image_url}
-            glowColor={glowColor}
-            label="OPENING ENGINE"
-          />
+  items={items}
+  isOpening={false}
+  glowColor={glowColor}
+/>
         </div>
 
         {/* Open CTA */}

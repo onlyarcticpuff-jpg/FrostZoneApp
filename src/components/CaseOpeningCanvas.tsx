@@ -64,17 +64,15 @@ export default function CaseOpeningCanvas({
       const grid = new PIXI.Graphics();
       const particles = new PIXI.Container();
       const caseLayer = new PIXI.Container();
-      const labelText = new PIXI.Text({
-        text: label,
-        style: {
-          fill: 0xffffff,
-          fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: 10,
-          fontWeight: "800",
-          letterSpacing: 3,
-          alpha: 0.18,
-        },
-      });
+      const labelText = new PIXI.Text(label, {
+  fill: 0xffffff,
+  fontFamily: "Inter, system-ui, sans-serif",
+  fontSize: 10,
+  fontWeight: "800",
+  letterSpacing: 3,
+});
+
+labelText.alpha = 0.18;
 
       labelText.anchor.set(0.5, 0);
 

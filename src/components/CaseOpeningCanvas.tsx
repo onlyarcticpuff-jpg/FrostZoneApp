@@ -142,14 +142,14 @@ export default function CaseOpeningCanvas({
         }
       }
 
-      const name = makeText(item.name, 10, "800");
+      const name = makeText(item.name, 10)
       name.anchor.set(0.5, 0);
       name.x = cardW / 2;
       name.y = 94;
       name.alpha = 0.92;
       card.addChild(name);
 
-      const chance = makeText(`${item.chance}%`, 9, "900");
+      const chance = makeText(`${item.chance}%`, 9)
       chance.anchor.set(0.5, 0);
       chance.x = cardW / 2;
       chance.y = 116;

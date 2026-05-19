@@ -501,7 +501,7 @@ function SwipeBanner() {
 
   // Auto-advance every 3.5 s
   useEffect(() => {
-    const id = setInterval(() => setCurrent(c => (c + 1) % BANNERS.length), 3500);
+    const id = setInterval(() => setCurrent(c => (c + 1) % BANNERS.length), 6500);
     return () => clearInterval(id);
   }, []);
 

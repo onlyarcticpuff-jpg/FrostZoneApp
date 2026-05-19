@@ -79,20 +79,16 @@ export default function CaseOpeningCanvas({
       winnerItem: ReelItem;
     } = null;
 
-    const makeText = (text: string, size: number, weight = "800") => {
-      return new PIXI.Text({
-        text,
-        style: {
-          fill: 0xffffff,
-          fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: size,
-          fontWeight: weight,
-          align: "center",
-          wordWrap: true,
-          wordWrapWidth: cardW - 16,
-        },
-      });
-    };
+   const makeText = (text: string, size: number) => {
+  return new PIXI.Text(text, {
+    fill: 0xffffff,
+    fontFamily: "Inter, system-ui, sans-serif",
+    fontSize: size,
+    align: "center",
+    wordWrap: true,
+    wordWrapWidth: cardW - 16,
+  });
+};
 
     const drawCard = async (item: ReelItem, x: number, y: number) => {
       const card = new PIXI.Container();

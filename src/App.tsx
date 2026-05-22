@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import SecurityPage from "./SecurityPage";
 import {
   ChevronLeft,
   ChevronDown,
@@ -460,9 +461,10 @@ function InventoryPage() {
 
 // ─── Profile Page ─────────────────────────────────────────────────────────────
 function ProfilePage({ tonAddress }: { tonAddress: string }) {
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [copied, setCopied]   = useState(false);
+  const [profile, setProfile]         = useState<UserProfile | null>(null);
+  const [loading, setLoading]         = useState(true);
+  const [copied, setCopied]           = useState(false);
+  const [showSecurity, setShowSecurity] = useState(false);
 
   const tg          = tgUser();
   const displayName = [tg?.first_name, tg?.last_name].filter(Boolean).join(" ") || "Anonymous";
@@ -496,6 +498,9 @@ function ProfilePage({ tonAddress }: { tonAddress: string }) {
 
   return (
     <div style={{ animation: "fadeUp 0.38s cubic-bezier(0.34,1.56,0.64,1) both" }}>
+
+      {/* Security Page slide-in overlay */}
+      {showSecurity && <SecurityPage onClose={() => setShowSecurity(false)} />}
 
       {/* ── Hero: Avatar + Identity ── */}
       <div style={{ marginBottom: 16, borderRadius: 24, overflow: "hidden", position: "relative",
@@ -630,15 +635,16 @@ function ProfilePage({ tonAddress }: { tonAddress: string }) {
       <div style={{ borderRadius: 18, overflow: "hidden", marginBottom: 12,
         border: "1px solid rgba(255,255,255,0.09)", boxShadow: CARD_SHADOW }}>
         {[
-          { icon: <Bell size={15} color="#fff" />, iconBg: "#2AABEE", label: "Notifications", sub: "Manage alerts" },
-          { icon: <Shield size={15} color="#fff" />, iconBg: "#4CAF50", label: "Security", sub: "Privacy & data" },
-          { icon: <Gift size={15} color="#fff" />, iconBg: "#9055ff", label: "Support", sub: "Help & contact" },
-          { icon: <ExternalLink size={15} color="#fff" />, iconBg: "#e4ae39", label: "About", sub: "App info & terms" },
+          { icon: <Bell size={15} color="#fff" />, iconBg: "#2AABEE", label: "Notifications", sub: "Manage alerts", onClick: undefined },
+          { icon: <Shield size={15} color="#fff" />, iconBg: "#4CAF50", label: "Security", sub: "PIN, 2FA & authenticator", onClick: () => setShowSecurity(true) },
+          { icon: <Gift size={15} color="#fff" />, iconBg: "#9055ff", label: "Support", sub: "Help & contact", onClick: undefined },
+          { icon: <ExternalLink size={15} color="#fff" />, iconBg: "#e4ae39", label: "About", sub: "App info & terms", onClick: undefined },
         ].map((row, i, arr) => (
           <div key={i}>
             <div style={{ display: "flex", alignItems: "center", gap: 13, padding: "12px 16px",
               background: "rgba(255,255,255,0.04)", cursor: "pointer",
               transition: "background 0.15s" }}
+              onClick={row.onClick}
               onTouchStart={e => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
               onTouchEnd={e => (e.currentTarget.style.background = "rgba(255,255,255,0.04)")}>
               {/* iOS-style colored icon square */}

@@ -22,7 +22,7 @@ export default async function handler(
     }
 
     const payload = {
-      title: "OPENCASE Stars Deposit",
+      title: "Balance Top-Up",
       description: `${amount} Telegram Stars`,
       payload: `stars_${Date.now()}`,
       currency: "XTR",

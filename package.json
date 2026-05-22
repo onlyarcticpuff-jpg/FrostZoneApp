@@ -15,11 +15,15 @@
     "@telegram-apps/sdk-react": "^2.0.20",
     "@tonconnect/ui-react": "^2.0.9",
     "@tanstack/react-query": "^5.66.0",
+    "bcryptjs": "^2.4.3",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.475.0",
+    "otplib": "^12.0.1",
     "pixi.js": "^8.8.1",
+    "qrcode": "^1.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-pin-input": "^1.3.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {

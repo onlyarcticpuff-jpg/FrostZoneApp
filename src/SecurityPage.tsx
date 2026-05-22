@@ -133,7 +133,6 @@ function PinField({
               onChange={e => handleInput(e, i)}
               onKeyDown={e => handleKeyDown(e, i)}
               onPaste={handlePaste}
-              onFocus={handleFocus}
               style={{
                 width: "100%",
                 height: "100%",

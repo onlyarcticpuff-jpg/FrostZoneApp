@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
-import SecurityPage from "./SecurityPage";
+import SecurityPage from "src/SecurityPage";
 import {
   ChevronLeft,
   ChevronDown,

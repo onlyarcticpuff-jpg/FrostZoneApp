@@ -15,7 +15,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-import WalletAndProfile from "./WalletAndProfile";
+import { ProfilePage } from "./WalletAndProfile";
 
 import BottomNav from "./components/BottomNav";
 import CaseOpeningCanvas from "./components/CaseOpeningCanvas";
@@ -819,7 +819,13 @@ export default function App() {
         {activeTab === "inventory" && <InventoryPage />}
 
         {/* ── PROFILE ── */}
-        {activeTab === "profile" && <WalletAndProfile tonAddress={tonAddress} appUser={appUser} onStarsDeposited={handleStarsDeposited} />}
+{activeTab === "profile" && (
+  <ProfilePage 
+    tonAddress={tonAddress} 
+    appUser={appUser} 
+    onStarsDeposited={handleStarsDeposited} 
+  />
+)}
 
         {/* ── Other tabs ── */}
         {activeTab !== "home" && activeTab !== "inventory" && activeTab !== "profile" && activeTab !== "cases" && (

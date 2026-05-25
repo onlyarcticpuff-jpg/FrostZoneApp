@@ -43,9 +43,15 @@ function base32Decode(input: string): Uint8Array {
 
 /** TOTP verify — returns true if the 6-digit token matches */
 async function verifyTotp(token: string, secret: string): Promise<boolean> {
-  const key = await crypto.subtle.importKey(
-    "raw", base32Decode(secret), { name: "HMAC", hash: "SHA-1" }, false, ["sign"]
-  );
+  const secretBytes = base32Decode(secret);
+
+const key = await crypto.subtle.importKey(
+  "raw",
+  secretBytes.buffer as ArrayBuffer,
+  { name: "HMAC", hash: "SHA-1" },
+  false,
+  ["sign"]
+);
   const window = 1; // ±1 step tolerance
   const step   = Math.floor(Date.now() / 1000 / 30);
   for (let s = step - window; s <= step + window; s++) {

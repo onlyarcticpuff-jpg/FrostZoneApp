@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import SecurityPage from "./SecurityPage";
 import { saveTelegramUser } from "./lib/saveTelegramUser";
-useEffect(() => {
-  saveTelegramUser();
-}, []);
 import {
   ChevronLeft,
   ChevronDown,
@@ -112,6 +109,9 @@ const RARITY: Record<Rarity, { label: string; color: string; bg: string; border:
   contraband: { label: "Contraband", color: "#e4ae39", bg: "rgba(228,174,57,0.12)",  border: "rgba(228,174,57,0.26)"  },
 };
 
+useEffect(() => {
+  saveTelegramUser();
+}, []);
 // ─── Shared visual tokens ──────────────────────────────────────────────────────
 const CARD_SHADOW      = "0 2px 18px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.055) inset";
 const CARD_SHADOW_DEEP = "0 4px 32px rgba(0,0,0,0.44), 0 1px 0 rgba(255,255,255,0.06) inset";

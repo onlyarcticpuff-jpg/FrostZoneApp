@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import SecurityPage from "./SecurityPage";
+import { saveTelegramUser } from "./lib/saveTelegramUser";
+useEffect(() => {
+  saveTelegramUser();
+}, []);
 import {
   ChevronLeft,
   ChevronDown,
